@@ -1,3 +1,5 @@
+// https://promisesaplus.com/
+// https://www.ituring.com.cn/article/66566
 const PENDING = "pending";
 const FULFILLED = "fulfilled";
 const REJECTED = "rejected";
