@@ -108,8 +108,8 @@ class myPromise {
     /**
      * catch方法内部实际上是调用的then，只是没有resolve方法
      */
-    catch(error) {
-        return this.then(undefined, this.reject(error))
+    catch(onRejected) {
+        return this.then(undefined, onRejected)
     }
     /**
      * finally方法是无论promise执行成功或者失败都会去调用的方法，只需要给一个回掉函数
@@ -165,7 +165,6 @@ class myPromise {
      */
     static all(promiseList) {
         return new myPromise((resolve, reject) => {
-            console.log(Array.isArray(promiseList))
             if (isArray(promiseList)) {
                 let result = []; // 存储结果
                 let count = 0; // 计数器
@@ -193,7 +192,6 @@ class myPromise {
                     )
                 })
             } else {
-                console.log('fal')
                 return reject(new TypeError('Argument is not iterable'))
             }
         })
@@ -215,8 +213,7 @@ class myPromise {
                 let errors = [];
                 console.log(promiseList)
                 if (promiseList.length === 0) {
-                    console.log(11)
-                    return reject('sssss');
+                    return reject(new AggregateError([], 'All promises were rejected'))
                 }
                 promiseList.forEach((item, index) => {
                     item.then(
@@ -231,7 +228,6 @@ class myPromise {
                     )
                 })
             } else {
-                console.log(22)
                 return reject(new TypeError('Argument is not iterable'))
             }
         })
@@ -348,7 +344,7 @@ const promise3 = new Promise((resolve) => setTimeout(resolve, 500, 'slow'));
 // const promises = [promise1, promise2, promise3];
 
 // myPromise.any([]).then((value) => console.log(value));
-myPromise.all([]).then(e => {
+myPromise.any([]).then(e => {
     console.log(e);
 }).catch(e => {
     console.log(e)
