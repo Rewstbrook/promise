@@ -383,13 +383,13 @@ myPromise.any([]).then(e => {
 // })
 
 
-// myPromise.deferred = function () {
-//     let result = {};
-//     result.promise = new myPromise((resolve, reject) => {
-//         result.resolve = resolve;
-//         result.reject = reject;
-//     });
-//     return result;
-// }
+myPromise.deferred = function () {
+    let result = {};
+    result.promise = new myPromise((resolve, reject) => {
+        result.resolve = resolve;
+        result.reject = reject;
+    });
+    return result;
+}
 
-// module.exports = myPromise;
+module.exports = myPromise;
