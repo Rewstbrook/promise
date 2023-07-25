@@ -96,6 +96,34 @@ class Container {
         })
         return promise2;
     }
+    static any(promiseList) {
+        return new Container((resolve, reject) => {
+            if (Array.isArray(promiseList)) {
+                let count = 0
+                let errors = [];
+                console.log(promiseList)
+                if (promiseList.length === 0) {
+                    console.log(11)
+                    return reject('sssss');
+                }
+                promiseList.forEach((item, index) => {
+                    item.then(
+                        value => {
+                            resolve(value);
+                        },
+                        reason => {
+                            count++;
+                            errors.push(reason);
+                            count == promiseList.length && reject(new AggregateError(errors));
+                        }
+                    )
+                })
+            } else {
+                console.log(22)
+                return reject(new TypeError('Argument is not iterable'))
+            }
+        })
+    }
 }
 // function resolvePromise(promise2, x, resolve, reject) {
 //     if (x === promise2) {
@@ -167,6 +195,7 @@ const resolvePromise = (promise2, x, resolve, reject) => {
         resolve(x)
     }
 }
+Container.any([]).then((value) => console.log(value));
 Container.deferred = Container.defer = function () {
     let dfd = {};
     dfd.promise = new Container((resolve, reject) => {

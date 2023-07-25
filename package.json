@@ -4,7 +4,8 @@
     "description": "promise",
     "main": "index.js",
     "scripts": {
-        "test": "promises-aplus-tests promise.js"
+        "test": "promises-aplus-tests myPromise.js",
+        "test1": "promises-aplus-tests diff.js"
     },
     "repository": {
         "type": "git",
