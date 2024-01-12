@@ -175,6 +175,7 @@ class myPromise {
             // 参数校验
             if (Array.isArray(promises)) {
                 let result = []; // 存储结果
+                let result = new Array(promises.length);
                 let count = 0; // 计数器
 
                 // 如果传入的参数是一个空的可迭代对象，则返回一个已完成（already resolved）状态的 Promise
